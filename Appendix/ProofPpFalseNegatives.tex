@@ -1,0 +1,116 @@
+Given two agents $A_{k}$ and $A_{-k}$. Given $I = \{ g_{1}, ..., g_{n} \}$ a set of generalizations, and $U_{O}$ the overall context of the agents, divided in two sets of example $U^{+}$ and $U^{-}$ that partition $U$. Given the belief $\alpha = \langle +, I, A_{-k} \rangle$:
+
+\begin{lemma}\label{lm:FP1}
+In term of binary relations, the set of $\alpha$'s false positive examples is $FP = \{ e \in U^{-} \cap U_{O} | I \sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+We stated in Section \ref{sec:BeliefCreate} that the set of negative elements of the belief $\alpha = \langle +, I, A_{-k} \rangle$ is $U^{-}$. We also stated that the set of positive assignments is  $\{ e \in U_{O} | I \sqsubseteq e \}$. Since the set of false positives is the intersection between the set of negative elements and the set of positive assignments, the set of false positives is $\{ e \in U^{-} \cap U_{O} | I \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FP2}
+In term of binary relations, the set of $\alpha$'s false positive examples is $FP = \{ e \in U^{-} | I \sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+We stated in Lemma \ref{lm:FP1} that the set of false positives is $\{ e \in U^{-} \cap U_{O} | I \sqsubseteq e \}$. Since $U^{+}$ and $U^{-}$ are partitioning $U_{O}$, $U^{-} \subset U_{O}$ and therefore $U_{O} \cap U^{-} = U^{-}$. Therefore, $FP = \{ e \in U^{-} | I \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FN1}
+In term of binary relations, the set of $\alpha$'s false positive examples is $FN = \{ e \in U^{+} \cap U_{O} | I \not \sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+We stated in Section \ref{sec:BeliefCreate} that the set of positive elements of the belief $\alpha = \langle +, I, A_{-k} \rangle$ is $U^{+}$. We also stated that the set of negative assignments is  $\{ e \in U_{O} | I \not\sqsubseteq e \}$. Since the set of false negatives is the intersection between the set of positive elements and the set of negative assignments, the set of false negatives is $\{ e \in U^{+} \cap U_{O} | I \not \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FN2}
+In term of binary relations, the set of $\alpha$'s false negative examples is $FN = \{ e \in U^{+} | I \not \sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+We stated in Lemma \ref{lm:FN1} that the set of false negatives is $\{ e \in U^{+} | I \not \sqsubseteq e \}$. Since $U^{+}$ and $U^{-}$ are partitioning $U_{O}$, $U^{+} \subset U_{O}$ and therefore $U_{O} \cap U^{+} = U^{+}$. Therefore, $FN = \{ e \in U^{+} | I \not \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FPnUk}
+The intersection between $FP$ and $U_{-k}$ is $FP \cap U_{-k} = \{e \in U^{-}_{-k} | I \sqsubseteq e \}$
+\end{lemma}
+
+\begin{proof}
+According to Lemma \ref{lm:FP2}, $FP = \{ e \in U^{-} | I \sqsubseteq e \}$. By definition, $FP \cap U_{-k} = \{e \in (U^{-} \cap U_{-k}) | I \sqsubseteq e \}$. Moreover, in Section \ref{sec:funCreaConA}, we define $U^{-}_{k}$ as $U^{-} \cap U_{k}$. Therefore, $FP \cap U_{-k} = \{e \in U^{-}_{-k} | I \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FPdisUo}
+The local context $U_{-k}$ and the set of false positives $FP$ are disjoint.
+\end{lemma}
+
+\begin{proof}
+We know from Lemma \ref{lm:FPnUk} that $FP \cap U_{-k} = \{e \in U^{-}_{-k} | I \sqsubseteq e \}$. However, according to Definition \ref{def:Belief}, $\nexists e \in U^{-}_{-k}$ such that $I \sqsubseteq e$. Therefore, $\{e \in U^{-}_{-k} | I \sqsubseteq e \} = \emptyset$ which means that $FP \cap U_{-k} = \emptyset$.
+\end{proof}
+
+\begin{lemma}\label{lm:FNnUk}
+The intersection between $FN$ and $U^{+}_{-k}$ is $FN \cap U^{+}_{-k} = \{e \in U^{+}_{k} | I \not \sqsubseteq e \}$
+\end{lemma}
+
+\begin{proof}
+According to Lemma \ref{lm:FN2}, $FN = \{ e \in U^{+} | I \not \sqsubseteq e \}$. By definition, $FN \cap U^{+}_{-k} = \{e \in (U^{+} \cap U_{k}) | I \not \sqsubseteq e \}$. Moreover, in Section \ref{sec:funCreaConA}, we define $U^{+}_{k}$ as $U^{+} \cap U_{k}$. Therefore, $FN \cap U^{+}_{-k} = \{e \in U^{+}_{k} | I \not \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FNdisUo}
+The local context $U_{-k}$ and the set of false negatives $FN$ are disjoint.
+\end{lemma}
+
+\begin{proof}
+We know from Lemma \ref{lm:FNnUk} that $FN \cap U^{+}_{-k} = \{e \in U^{+}_{k} | I \not \sqsubseteq e \}$. However, according to Definition \ref{def:Belief}, we have $I \sqsubseteq U^{+}_{-k}$, which is equivalent to $\forall e \in U^{+}_{-k}, I \sqsubseteq e$. Therefore, $\{e \in U^{+}_{-k} | I \not \sqsubseteq e \} = \emptyset$ which means that $FN \cap U_{-k} = \emptyset$.
+\end{proof}
+
+Let $\gamma = \langle \alpha, x, I', A_{k} \rangle$ be a g-argument that attacks the belief $\alpha$. The positive examples of $\gamma$ are:
+
+\begin{itemize}
+    \item $P' = FN$ if $x$ is $+$
+    \item $P' = FP$ if $x$ is $-$
+\end{itemize}
+
+\begin{lemma}\label{lm:FNx}
+For any $x \in \{+,-\}$, the false negatives of the g-argument $\gamma$ are the examples $FN^{x} = \{ e \in (U_{O} \cap P') | I' \not\sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+By definition, the set of false negatives of $\gamma$ is the intersection between the set of positive examples of $\gamma$ which is $P'$, and the set of negative assignments of $\gamma$ which is $\{ e \in U_{O} | I' \not \sqsubseteq e \}$. Therefore, their intersection is $FN^{+} = \{ e \in (U_{O} \cap P') | I' \not\sqsubseteq e \}$
+\end{proof}
+
+\begin{lemma}\label{lm:FN+1}
+If $x = +$, the false negatives of the g-argument $\gamma$ are the examples $FN^{+} = \{ e \in FN | I' \not\sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+Since $P' = FN$, and since $FN$ is a subset of $U_{O}$, $U_{O} \cap FN = FN$. Therefore, according to Lemma \ref{lm:FNx}, if $x$ is $+$, $FN^{+} = \{ e \in FN | I' \not\sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FN+2}
+The set of examples $FN^{+} = \{ e \in FN | I' \not\sqsubseteq e \}$ is an empty set.
+\end{lemma}
+
+\begin{proof}
+According to Lemma \ref{lm:FN+1}, if $x$ is $+$ then the set of $\gamma$'s false negatives is $FN^{+} = \{ e \in FN | I' \not\sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FN-1}
+If $x$ is $-$, the false negatives of the g-argument $\gamma$ are the examples $FN^{-} \{ e \in FP | I' \not\sqsubseteq e \}$.
+\end{lemma}
+
+\begin{proof}
+Since $P' = FP$, and since $FP$ is a subset of $U_{O}$, $U_{O} \cap FP = FP$. Therefore, according to Lemma \ref{lm:FNx}, if $x$ is $-$, $FN^{-} = \{ e \in FP | I' \not\sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lm:FN-2}
+The set of examples $FN^{-} = \{ e \in FP | I' \not\sqsubseteq e \}$ is an empty set.
+\end{lemma}
+
+\begin{lemma}
+The g-argument $\gamma$ cannot have false negatives.
+\end{lemma}
+
+\begin{proof}
+According to Lemma \ref{lm:FN+2}, the set of false negatives of $\gamma$ is empty if $x = +$. According to Lemma \ref{lm:FN-2}, the set of false negatives of $\gamma$ is empty if $x = -$. Since $x \in \{+,- \}$, the set of negative examples of a g-argument is always empty.
+\end{proof}

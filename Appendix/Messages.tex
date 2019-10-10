@@ -1,0 +1,70 @@
+This appendix lists the different types of content (Table \ref{tab:MessageContent}) and performatives (Table \ref{tab:Messageperformative}) that can be put in a message. 
+
+
+\begin{table}
+    \centering
+    \begin{tabular}[t]{| >{\raggedright\arraybackslash}m{0.3\linewidth} | >{\raggedright\arraybackslash}m{0.3\linewidth}  | >{\raggedright\arraybackslash}m{0.3\linewidth} | } 
+         \hline
+         Class & Types & Notations \\
+         \hline
+         \hline
+         Elementary Values & Boolean, Integer, Double & b, i, d \\
+         \hline
+         Semiotic Components & Examples, Generalizations & e, g \\
+         \hline
+         Semiotic Elements & Extensional Definition, Sign, Intensional Definition & $s$, $E$, $I$, $s(C)$, $E(C)$, $I(C)$ \\ 
+         \hline
+         Arguments & Root Arguments, Counter-Arguments & $\alpha$, $\beta$, \ldots \\ 
+         \hline
+         Identifiers & Concept Identifiers, Argument Identifiers & $i$, $i(C)$, $i(\alpha)$ \\
+         \hline
+         Evaluations & R-Triplets, Pairing Relations & $r(C_{i}, C_{j}, U)$, $(i_{-1}, i_{0}, i_{1})$, $C_{i} r_{U} C_{j}$, $\equiv$, $\odot$, $\oslash$, $\otimes$ \\
+         \hline
+    \end{tabular}
+    \caption{Different types of content available for messages. The different types are regrouped by classes in the left column. The right column gives some examples of content in their canonical notation.}
+    \label{tab:MessageContent}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}[t]{| >{\raggedright\arraybackslash}m{0.2\linewidth} | >{\raggedright\arraybackslash}m{0.25\linewidth}  | >{\raggedright\arraybackslash}m{0.45\linewidth} | } 
+         \hline
+         Performative & Content & Description \\
+        \hline
+        \hline
+        Accept-Root, Accept-Argument & $i(\alpha)$ & Tells $A_{-k}$ that the argument $\alpha$ has been accepted by $A_{k}$'s standards.\\
+        \hline
+        Assert & $s(C)$, $i(C,A_{k})$, $I(C)$ & Informs the agent $A_{-k}$ that $A_{k}$ has a concept $C$, and shares its sign and intensional definition with $A_{-k}$.\\
+        \hline
+        Baptize & $s$ & Attributes a new sign $s$ to the concept that is currently being created. \\
+        \hline
+        Debate & $i(C_{i})$, $i(C_{j})$ & Proposes to resolve the disagreement caused by the relation between $C_{i}$ and $C_{j}$.\\
+        \hline
+        Examples & $E$ & Contains a set of examples $E$ for $A_{-k}$ to expends its local context.\\
+        \hline
+        Evaluation & $i(C_{i})$, $i(C_{j})$, $r(C_{i}, C_{j}, U)$ & Shares the r-triplet of $C_{i}$ and $C_{j}$ with $A_{-k}$.\\
+        \hline
+        Intransitive & $i(C_{1}), \ldots, i(C_{n})$ & Informs the agent $A_{-k}$ that from the point of view of $A_{k}$, $C_{1} \ldots C_{n}$ are breaking the transitivity rule of the equivalence pairing relation.\\
+        \hline
+        Name & $s$, $e$ & Tells $A_{-k}$ that $A_{k}$ associates the example $e$ with the sign $s$.\\
+        \hline
+        Relation & $i(C_{i})$, $i(C_{j})$, $r$ & Shares the pairing relation between $C_{i}$ and $C_{j}$ with $A_{-k}$.\\
+        \hline
+        Remove & $i(C_{1})$, $\ldots$, $i(C_{n})$ & Tells $A_{-k}$ that all instances of the concepts $i(C_{1})$, $\ldots$, $i(C_{n})$ should be removed from the argumentation.\\
+        \hline
+        Replace & $s$, $i(C)$ & Tells $A_{-k}$ that the sign of concept $C$ is now $s$.\\
+        \hline
+        Root-Argument, Counter-Argument & $\alpha$ & Sends an argument $\alpha$ to $A_{-k}$.\\
+        \hline
+        Seize & & Notifies $A_{-k}$ that $A_{k}$ will take care of an asymmetrical aspect of the argumentation during the next turn(s).\\
+        \hline
+        Self-Check & & Asks $A_{-k}$ to look for the pairing relations $R(S_{K,-k}, S_{H,-k}, U_{O})$.\\
+        \hline
+        Size & $i$ & Contains the size of a set of examples. Used to determine if a new concept has potentially enough examples to deserved to be created.\\
+        \hline
+        Vote & $s$, $i(C)$, $d$ & Gives a support of value $d$ to the fact that the concept $C$ should have $s$ for sign.\\
+        \hline
+    \end{tabular}
+    \caption{The different performatives available for messages. Each performative (left column) is presented with the type of content that is expected to be found in its instances (middle column). The role of each performative is presented in the right column.}
+    \label{tab:Messageperformative}
+\end{table}

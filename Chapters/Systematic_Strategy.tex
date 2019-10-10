@@ -1,0 +1,223 @@
+\section{Introduction}
+
+% First approach to mutual intelligibility, detecting and resolving all the synchronic disagreements without creating new diachronic disagreements
+The systematic is our first approach to reach mutual intelligibility, using the model presented in the precedent chapters. The systematic strategy consists into systematically searching for synchronic disagreements between the two agents, and resolve these disagreements once they are all listed. The disagreements are resolved according to the methods presented in Section \ref{sec:Resolution} of Chapter \ref{ArgumentationModel}.
+% Resolving might create new disagreements, some expected some not, thus need detecting after
+As we mentioned in Section \ref{sec:Resolution}, resolving a semantic disagreement can sometimes create new synchronic disagreements. For this reason, the systematic strategy also look for new disagreements each time that a disagreement has been resolved.
+% At the end, changing vocabulary to re-use signs from initial contrast sets
+Once the systematic strategy has brought the agents into mutual intelligibility, the systematic strategy finishes by changing the vocabulary of the two agents, reusing the past vocabulary of their initial contrast sets. This additional but optional phase is cosmetic, allowing the new contrast sets to use real signs instead of generated ones.
+
+\section{Structure of an Argumentation Adopting a Systematic Strategy}
+
+The systematic strategy is characterized by its linear structure. While its structure includes a loop, the strategy has a clear beginning and an end point, which differs from the "on-demand" design of the lazy strategy. The argumentation strategy is structure in four main phases: \emph{Start}, \emph{Evaluation}, \emph{Resolve Disagreements} and the optional \emph{Update Vocabulary}. The agents follow these phases, cycling between Phase 2 and Phase 3 until reaching mutual intelligibility.  Each phase is divided into main steps. A step corresponds to a short term objective in term of argumentation for the agents. For instance, the Evaluation Phase contains the step \emph{Identify Pairing Relations}. Figure \ref{} represents the four different phases and their respective steps. Each step is also divided into \emph{states}. The states, already mentioned in Section \ref{sec:ModusOperandi}, are the different algorithms that an agent can follow during one of its turns. This algorithm always end by sending back the token to the other agent, so this action is not written in the state presentations listed in the sections below.
+
+\section{Phase 1: Start}
+
+The start of our argumentation strategy is an introduction of the agents in the cycle that will later take place between Phases 2 and 3. In this phase, the agents exchange all their intensional definitions and prepare for argumentation v. The State 1 \emph{Send Intensional Definition} is the initial state of the agents, and defines the first actions that the agents will take during their first turn. 
+
+\subsection{Step 1: Exchange Intensional Definitions}
+
+This step is the unique step of Phase 1. During its first state, the agents exchange all their intensional definitions. During the second state, each agent creates a hypothesis using the intensional definitions that it received from the other agent. At the end of this state, each agent has a hypothesis emulating all the concepts from their interlocutor's contrast set. They can start identifying disagreements.
+
+\subsubsection{State 1: Send Intensional Definition}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} Since the agent will only be in this state during its first turn, no message is expected at the beginning of this turn.
+    \item \textbf{Output Messages:} \emph{Assert, Check-Self}
+\end{itemize}
+    
+Upon receiving the token the agent $A_{k}$ creates a new contrast set $K = \{ S_{K,k}, U_{k} \}$, copy of $A_{k}$'s initial contrast set $K_{i}$. For each concept $C_{i} \in S_{K,k}$, $A_{k}$:
+
+\begin{enumerate}
+    \item adds $C_{i}$ to its list of newly created concepts $Add_{k}$,
+    \item creates a message $m$ = \emph{Assert}\#2($s(C_{i})$, $i(C_{i})$, $I(C_{i})$),
+    \item sends $m$ to the other agent
+\end{enumerate}
+
+Additionally, $A_{k}$ sends a \emph{Self-Check}\#3() message to $A_{-k}$ as a reminder that the first time the agents go through Phase 2 they should also evaluate the pairing relations $R(Add_{K} \times Add_{K}, U_{O})$ and $R(Add_{H} \times Add_{H}, U_{O})$, in order to look for Self-Disagreements.
+
+\subsubsection{State 2: Receive Intensional Definition}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Assert}
+    \item \textbf{Output Messages:} \emph{none}
+\end{itemize}
+
+The agent $A_{k}$ creates a new hypothesis $H = \{ S'_{H,k} = \empty, U_{k} \}$. For each message \emph{Assert}($s$, $i$, $I)$) in its mailbox, $A_{k}$ adds a new concept $C_{i}' = \langle s, I, Adj(I, U_{k}) \rangle$ to $S_{H,k}$ such that $i(C_{i}') = i$ and adds $C_{i}'$ to its list $Add_{H}$ of concepts that have been newly created by $A_{-k}$. Then, $A_{k}$ cleans its mailbox from all messages. 
+
+\section{Phase 2: Evaluation}
+
+During the last phase -- either phase 1 or 3, the contrast sets of the agents have been modified. Concepts might have been added or deleted. For this reason, the agents need to update their hypotheses and to (re-)evaluate the pairing relations between each of their concepts, then detect the eventual disagreements, and list these disagreements. Additionally, the agents need to check that the transitivity of the equivalence relation is still respected within both contrast sets, and take measures if this is not the case. Once the evaluations are done and the containers updated, the agents are ready to resolve a new disagreement if there is any left.
+
+\subsection{Step 2: Identify Pairing Relations}
+
+This step is the first of Phase 2. During this step, the agents determine the pairing relation between each of their concepts. Since we determined that the synchronic disagreements are caused by specific pairing relations in Section \ref{sec:SynD}, knowing the overall pairing relations of each pair of concepts allows the agent to list their disagreements. Without listing their disagreements, the agents logically cannot resolve them. Multiple things are listed during this step: overall r-triplets, overall pairing relations, and hierarchies (which concept from a hypo/hypernymy relation is the hyponym and which is the hypernym). If this is the first time that the agents enter Phase 2, all their concepts should be in there respective lists $Add_{K}$ and $Add_{H}$, allowing the agents to check all the initial pairing relations in the argumentation.
+
+\subsubsection{State 3: Send Local R-Triplets}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Self-Check}
+    \item \textbf{Output Messages:} \emph{Evaluation}
+\end{itemize}
+
+Upon receiving the token, $A_{k}$ checks weather or not it received a \emph{Self-Check} message. Then, $A_{k}$ computes the set of local r-triplets $T$ that is equal to:
+
+\begin{itemize}
+    \item $T(Add_{K} \times S_{H,k}, U_{k})$ $\cup$ $T(S_{K,k} \times Add_{H}, U_{k})$ $\cup$ $T(Add_{K} \times Add_{H}, U_{k})$,
+    \item and additionally $T(Add_{K} \times Add_{K}$, $U_{k})$ $\cup$ $T(Add_{H} \times Add_{H}$, $U_{k})$ if a \emph{Self-Check} message has been received.
+\end{itemize}
+
+For each local r-triplet $r_{l} = r(C_{i}, C_{j}, U_{k}) \in T$, $A_{k}$ sends a message \emph{Evaluation}\#4($i(C_{i})$, $i(C_{j})$, $r_{l}$) to $A_{-k}$. $A_{k}$ cleans its mailbox from all messages. Then, $A_{k}$ adds to its containers the concepts that have been eventually created during the previous phase, and that are stored in the lists $Add_{K}$ and $Add_{H}$. For each concept $C$ in the list $Add_{K}$, $A_{k}$ adds $C$ to $S_{K,k}$. For each concept $C'$ in the list $Add_{H}$, $A_{k}$ adds $C'$ to $S_{H,k}$.
+
+\subsubsection{State 4: Send Loose R-Triplets}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Evaluation, Seize}
+    \item \textbf{Output Messages:} \emph{Evaluation, Examples}
+\end{itemize}
+
+The agent $A_{k}$ check if it has received a \emph{Seize} message, indicating that the other agent will be in charge of sending the pairing partial sets associated to unknown values in the loose r-triplets. Then, for each message \emph{Evaluation}($i(C_{i})$, $i(C_{j})$, $r$) in its mailbox, $A_{k}$ computes the overall pairing relation $r_{O} =  r(C_{i}, C_{j}, U_{O})$ using the method described in Section \ref{sec:funInferOv}. For each value $i_{n}$ of the r-triplet $r_{O}$, if $i_{n}$ is undefined and either:
+
+\begin{enumerate}
+    \item $|U_{1}(i_{n})| < |U_{2}(i_{n})|$, or
+    \item $|U_{1}(i_{n})| = |U_{2}(i_{n})|$, without the other agent having seized the computation of the overall r-triplet yet.
+\end{enumerate}
+
+$A_{k}$ sends a set of examples $E$ of $\tau$ examples from $U_{k}(i_{n})$ to the other agent through a message \emph{Examples}\#5($E$). Moreover, if the pairing partial set $U_{k}(i_{n})$ was equal to  $U_{2}(i_{n})$, the agent $A_{k}$ also send a message \emph{Seize} to $A_{-k}$.
+
+This method allows the agents to only exchange the smallest of their pairing partial sets, and to deal with situations where both pairing partial sets have the same size. Thanks to the integer-triplets, the agents can know how many examples there are in the other agent's pairing partial sets, as the undefined values can only appear if there are less than $\tau$ examples in both pairing partial sets. Exchanging these examples is necessary to compute the undefined values, as explained in Section \ref{sec:DoGEffectRelation}. After sending all the necessary examples, the agent $A_{k}$ sends an \emph{Evaluation}\#5($i(C_{i})$, $i(C_{j})$, $r_{O}$) to the other agent. Then, $A_{k}$ removes all the messages from its mailbox.
+
+\subsubsection{State 5: Send Semi-Secured R-Triplets}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Evaluation, Examples}
+    \item \textbf{Output Messages:} \emph{Evaluation}
+\end{itemize}
+
+The agent $A_{k}$ starts its turn by adding all the examples that it has received from the \emph{Example} messages in its mailbox, to all of its currents contexts -- which means both $U_{K,k}$ and $U_{H,k}$. Once the examples have been added, $A_{k}$ computes the local pairing relation $r_{l} = r(C_{i}, C_{j}, U_{k})$ for each message \emph{Evaluation}($i(C_{i})$, $i(C_{j})$, $r$) that it has received in its mailbox.
+
+This time, the values from the r-triplet $r_{l}$ that shared their index with undefined values from the triplet $r_{O} = r(C_{i}, C_{j}, U_{O})$ computed during the precedent turn, will be the defined value at $r_{O}$'s same index since $r_{l}$ has been computed with the local pairing partial sets of $A_{2}$ added to the local context.
+
+$A_{k}$ sends each r-triplet $r_{l}$ to $A_{-k}$ through a message \emph{Evaluation}\#6($i(C_{i})$, $i(C_{j})$, $r_{l}$). Then, $A_{k}$ removes all messages from its mailbox. 
+
+\subsubsection{State 6: Compute Secured R-Triplets}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Evaluation}
+    \item \textbf{Output Messages:} \emph{Evaluation}
+\end{itemize}
+
+for each message \emph{Evaluation}($i(C_{i})$, $i(C_{j})$, $r$) in its mailbox, the agent $A_{k}$ computes the overall r-triplet $r_{O} =  r(C_{i}, C_{j}, U_{O})$ using the method described in Section \ref{sec:funInferOv}. This overall r-triplet might still have undefined values. This time, however, $A_{k}$ knows that each undefined value $i_{n}$ of the overall r-triplet $r_{0}$ is the $n^{th}$ value of either $A_{k}$ or $A_{-k}$'s local r-triplet as one of the agent added the other's local pairing partial set to its context. $A_{k}$ also knows that this value is the maximum of the two local r-triplets' $n^{th}$ values, as this r-triplet logically belongs to the agent who has the most information on the related overall pairing partial set. For this reason, $A_{k}$ can replace the undefined value $i_{n}$ by the maximum of the two local r-triplets' $n^{th}$ values. The overall r-triplet is then kept in memory in the list $RT$ of $A_{k}$.
+
+For each r-triplet $r = r(C_{i}, C_{j}, U_{O}$ added to $RT$, $A_{k}$ computes the overall pairing relation using the method explained in \ref{sec:DoGEffectRelation}. If the overall pairing relation is a hypo/hyperonymy, $A_{k}$ keeps in memory which concept is the hyponym and which is the hypernym, in the list $Hh$. Then, $A_{k}$ sends a message \emph{Relation}\#7($i(C_{i})$,$i(C_{j})$,$C_{i} r_{UO} C_{j}$) to $A_{-k}$, so $A_{-k}$ can list the disagreements during the next turn. Then, $A_{k}$ removes all the messages from its mailbox.
+
+\subsection{Step 3: Search for Disagreements}
+
+The third step of Phase 2 has only one state. After having determined the overall r-triplets and overall pairing relations between all the concepts newly involved in the argumentation, the agents can check whether each overall pairing relation is causing a disagreement. Such overall pairing relations need to be listed in order for their associated synchronic disagreements to be resolved later during the third Phase.
+
+\subsubsection{State 7: Find Disagreements}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Relation}
+    \item \textbf{Output Messages:} \emph{none}
+\end{itemize}
+
+For each message \emph{Relation}($i(C_{i})$,$i(C_{j})$,$C_{i} r_{UO} C_{j}$) in its mailbox, the agent $A_{k}$ check whether are not the relation $r = C_{i} r_{UO} C_{j}$ is causing a synchronic disagreement, as explained in Section \ref{sec:SynD}. If the relation is causing a disagreement, $A_{k}$ stores the disagreement $d = (s_{i}, s_{j}, r)$ in the list $D$. At this point, however, Untranslatability disagreements cannot be listed as they are not the result of a pairing relation between two concepts, but rather due to an absence of pairing relation. $A_{k}$ ends its turn by removing all the messages from its mailbox. 
+
+\subsection{Step 4: Search for Equivalences}
+
+At this point of Phase 2, both agents have a good representation of the relations between every concepts involved in the argumentation. However, before starting to resolve the disagreements, the agents need to fix one last issue: ensuring that there are no two equivalent concepts in their contrast sets. First, the agents need to verify if one of the concepts that they recently added is a synonym of an already existing concept of their contrast set. If this is the case, the newest concept comes to replace the oldest one. Moreover, we mentioned in Section \ref{sec:TransitivityLoss} that the agents need to ensure that no triadic relation comes as an infringement of the transitivity of our equivalence pairing relation. For these two reasons, the agents inspect closely the equivalence relations among their concepts before leaving Phase 2.
+
+\subsubsection{State 8: Send Own Local Internal Equivalences}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{none}
+    \item \textbf{Output Messages:} \emph{Evaluation}
+\end{itemize}
+
+For each concept $C_{i} \in S_{K,k}$ and $C_{j} \in Add_{K}$ such that $C_{i} \neq C_{j}$, $A_{k}$ computes the local pairing relation between $C_{i}$ and $C_{j}$ to check if:
+
+\begin{itemize}
+    \item $C_{i} \equiv_{k} C_{j}$, or
+    \item $C_{i} \dagger_{k} C_{j}$, or
+    \item $C_{i} \circleddash_{k} C_{j}$.
+\end{itemize}
+
+If this is the case, $A_{k}$ might have to get rid of the old concept $C_{i}$, that is either redundant with $C_{j}$ or even makes $C_{j}$ indistinguishable as a concept (see indistinguishable disagreement in Section \ref{sec:Disagree}). In order to be sure, $A_{k}$ will compute the overall pairing relation between $C_{i}$ and $C_{j}$ with the help of $A_{-k}$. This will be done similarly to how $A_{k}$ and $A_{-k}$ determined the overall pairing relations in Step 3. This means that $A_{k}$ starts by sending the local r-triplet $r = (C_{i}, C_{j}, U_{k})$ to $A_{-k}$ with a message \emph{Evaluation}\#9($i(C_{i})$, $i(C_{j})$, $r$).
+
+\subsubsection{State 9: Verify Other's Local Internal Equivalences}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Evaluation}
+    \item \textbf{Output Messages:} \emph{Evaluation, Examples}
+\end{itemize}
+
+During this state, $A_{k}$ will help $A_{-k}$ to ensure that $A_{-k}$'s old concepts that $A_{-k}$ suspects to be either in a pairing relation of equivalence, one-sided or in no pairing relation with a new concept are indeed in that situation and need to be removed.
+
+For each message \emph{Evaluation}($i(C_{i})$, $i(C_{j})$, $r$) in its mailbox, $A_{k}$ computes the overall pairing relation $r_{O} =  r(C_{i}, C_{j}, U_{O})$ using the method described in Section \ref{sec:funInferOv}. $A_{k}$ then sends a message \emph{Evaluation}\#10($i(C_{i})$, $i(C_{j})$, $r_{O}$). For each value $i_{n}$ of the r-triplet $r_{O}$, if $i_{n}$ is undefined and $|U_{1}(i_{n})| \leq |U_{2}(i_{n})|$, $A_{k}$ sends a set of examples $E$ of $\tau$ examples from $U_{k}(i_{n})$ to the other agent through a message \emph{Examples}\#10($E$). This time, there is no need for any agent to seize the argumentation, as an extra state will be used to determine the overall pairing relation between the two concepts.
+
+
+\subsubsection{State 10: Verify Own Overall Internal Equivalences}
+
+\begin{itemize}
+    \item \textbf{Input Messages:} \emph{Evaluation, Examples}
+    \item \textbf{Output Messages:} \emph{Remove}
+\end{itemize}
+
+
+
+\subsubsection{State 11: Valid Other's Overall Internal Equivalences}
+
+\subsubsection{State 12: Send External Equivalences}
+
+\subsection{Step 5: Update Containers}
+
+\subsubsection{State 13: Update Contrast Set}
+
+\subsubsection{State 14: Update Hypothesis}
+
+\section{Phase 3: Resolve Disagreements}
+
+\subsection{Step 6: Choose Disagreement}
+
+\subsubsection{State 15: Choose Disagreement}
+
+\subsection{Step 7: Build Extensional Definition}
+
+\subsubsection{State 16: Fix Boundaries}
+
+\subsubsection{State 17: Build Extensional Definition}
+
+\subsubsection{State 18: Check Extensional Definition}
+
+\subsection{Step 8: Build Intensional Definition}
+
+\subsubsection{State 19: Build Intensional Definition}
+
+\subsection{Step 9: Build New Concept}
+
+\subsubsection{State 20: Build Sign}
+
+\subsubsection{State 21: Build Concept identifier}
+
+\subsubsection{State 22: Check Concept identifier}
+
+\subsubsection{State 23: Build Concept}
+
+\subsection{Step 10: Delete Concept}
+
+\subsubsection{State 24: Delete Unachieved Concept}
+
+\subsubsection{State 25: Delete Blinding Concepts}
+
+\subsection{Step 11: Change Signs}
+
+\subsubsection{State 26: Update Sign(s)}
+
+\section{Phase 4 (Optional): Update Vocabulary}
+
+\subsection{Step 12: Update Vocabulary}
+
+\subsubsection{State 27: Vote for Signs}
+
+\subsubsection{State 28: Elect Signs}

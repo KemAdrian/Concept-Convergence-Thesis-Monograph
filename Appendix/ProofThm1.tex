@@ -1,0 +1,281 @@
+Given two concepts $C_{i}$ and $C_{j}$ that have for intensional definitions respectively $I_{i}$ and $I_{j}$, and two contexts $U_{1}$ and $U_{2}$, we are having the four adjunct sets: $Adj(I_{i},U_{1})$, $Adj(I_{i},U_{2})$, $Adj(I_{j},U_{1})$ and $Adj(I_{j},U_{2})$. Given an overall context $U_{O} = U_{1} \cup U_{2}$, we have also the two adjunct sets: $Adj(I_{i},U_{O})$ and $Adj(I_{j},U_{O})$. We will prove the validity of the \cref{thm:Overall}.
+
+Let $A_{1}$ and $A_{2}$ be two semiotic agents, $A_{1}$ partitioning the context $U_{1}$ in the contrast set $K_{1} = \{ U_{1}, S_{1} \}$ and $A_{2}$ partitioning the context $U_{2}$ in the contrast set $K_{2} = \{ U_{2}, S_{2}\}$. Let $C_{i}$ and $C_{j}$ be two concepts such that $C_{i} \in S_{1}$ and $C_{j} \in S_{2}$. Let $C_{i} r_{K} C_{j}$ be the local pairing relation of the agent $A_{1}$ and $C_{i} r_{K'} C_{j}$ the local pairing relation of the agent $A_{2}$, and $C_{i} r_{O} C_{j}$ the overall pairing relation of $A_{1}$ and $A_{2}$ between $C_{i}$ and $C_{j}$.
+
+\begin{lemma}\label{lemma:relative}
+The relative complement of $Adj(I_{j},Ctn)$ in $Adj(I_{i},Ctn)$ satisfies $Adj(I_{i}, Ctn) - Adj(I_{j}, Ctn) = \{ e \in U_{Ctn} | I_{i} \sqsubseteq e \wedge I_{j} \not \sqsubseteq e  \}$.
+\end{lemma}
+
+\begin{proof}
+Definition \ref{def:AdjI} states that for any intentional definition $I$ and container $Ctn$, $Adj(I,Ctn) = \{ e \in U_{Ctn} | I \sqsubseteq e \}$. Therefore, the relative complement of $Adj(I_{j},Ctn)$ in $Adj(I_{i},Ctn)$ is $Adj(I_{i}, Ctn) - Adj(I_{j}, Ctn) = \{ e \in U_{Ctn} | I_{i} \sqsubseteq e \wedge I_{j} \not \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lemma:relativeq}
+The existence of an example $e \in U_{Ctn}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \not \sqsubseteq e$ can be written $Adj(I_{i}, Ctn) - Adj(I_{j}, Ctn) \neq \emptyset$.
+\end{lemma}
+
+\begin{proof}
+The existence of an example $e \in U$ such that an intensional definition $I \sqsubseteq e$ and another intensional definition $I' \not \sqsubseteq e$ can be written $\{ e \in U | I \sqsubseteq e \wedge I' \not \sqsubseteq e \} \neq \emptyset$. Since Lemma \ref{lemma:relative} states that $\{ e \in U_{Ctn} | I_{i} \sqsubseteq e \wedge I_{j} \not \sqsubseteq e \} \Leftrightarrow Adj(I_{i},Ctn)$ is $Adj(I_{i}, Ctn) - Adj(I_{j}, Ctn)$, then the existence of an example $e \in U_{Ctn}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \not \sqsubseteq e$ can be written $Adj(I_{i}, Ctn) - Adj(I_{j}, Ctn) \neq \emptyset$
+\end{proof}
+
+\begin{lemma}\label{lemma:IC equivalence}
+Let $C$ and $C'$ be two concepts that have as intentional definition respectively $I$ and $I'$. $Adj(C, Ctn) - Adj(C', Ctn)$ is equivalent to $Adj(I, Ctn) - Adj(I', Ctn)$.
+\end{lemma}
+
+\begin{proof}
+Theorem \ref{thm:AdjSetEq} states that the adjunct set of a concept is the adjunct set of its intentional definition. Therefore, the set difference of the adjunct sets of two concepts is also the set difference of the adjunct sets of the intensional definitions of these two concepts.
+\end{proof}
+
+\begin{lemma}\label{lemma:sd11}
+If $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1})$ is not  empty, then $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O})$ is also not empty.
+\end{lemma}
+
+\begin{proof}
+Let $e$ be an example such that $e \in U_{1}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \not \sqsubseteq e$. If $e$ exists, according to Lemma \ref{lemma:relativeq} $Adj(I_{i}, K_{1}) - Adj(I_{j}, K_{1}) \neq \emptyset$ and according to Lemma \ref{lemma:IC equivalence}, $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset$. However, if $e$ exists and since $U_{1} \subset U_{0}$, then $e \in U_{0}$ and therefore $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$. Therefore:
+
+\begin{center}
+$Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:sd12}
+If $Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2})$ is not empty, then $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O})$ is also not empty.
+\end{lemma}
+
+\begin{proof}
+Let $e$ be an example such that $e \in U_{2}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \not \sqsubseteq e$. If $e$ exists, according to Lemma \ref{lemma:relativeq} $Adj(I_{i}, K_{2}) - Adj(I_{j}, K_{2}) \neq \emptyset$ and according to Lemma \ref{lemma:IC equivalence}, $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{2}) \neq \emptyset$. However, if $e$ exists and since $U_{2} \subset U_{0}$, then $e \in U_{0}$ and therefore $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$. Therefore:
+
+\begin{center}
+$Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:sd1}
+If $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1})$ is not  empty or $Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2})$ is not empty, then$Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O})$ is also not empty.
+\end{lemma}
+
+\begin{proof}
+We know that $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$ (Lemma \ref{lemma:sd11}).
+We know that $Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$ (Lemma \ref{lemma:sd12}).
+Therefore:
+
+\begin{center}
+$(Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset) \Rightarrow Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$.
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:sd2}
+If $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O})$ is not empty, then either $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1})$ is not empty or $Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2})$ is not empty.
+\end{lemma}
+
+\begin{proof}
+For all $e_{x} \in U_{O}$, since $U_{O} = U_{1} \cup U_{2}$ then $e_{x} \in U_{1} \vee e_{x} \in U_{2}$. Therefore, if $\exists e \in U_{O}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \not \sqsubseteq e$, then $e \in U_{1} \vee e \in U_{2}$. Therefore, according to Lemma \ref{lemma:relativeq}, we can write
+
+\begin{center}
+$Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset \Rightarrow (Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset)$.
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:sd}
+$Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O})$ is not empty if and only if $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1})$ is not empty or the set difference $Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2})$ is not empty.
+\end{lemma}
+
+\begin{proof}
+We know that $(Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset) \Rightarrow Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset$ (Lemma \ref{lemma:sd1}).
+We know that $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset \Rightarrow (Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset)$ (Lemma \ref{lemma:sd2}). Therefore, since $(A \Rightarrow B) \wedge (B \Rightarrow A)$ is equivalent to $A \Leftrightarrow B$, we can write:
+
+\begin{center}
+$Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset \Leftrightarrow (Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset)$
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:SD}
+$Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O})$ is empty if and only if the  $Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1})$ is empty and $Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2})$ is empty.
+\end{lemma}
+
+\begin{proof}
+We know that $Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset \Leftrightarrow (Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset)$ (Lemma \ref{lemma:sd}).
+We also know that, by definition, $\overbar{A - B \neq \emptyset}$ is $A - B = \emptyset$.
+Also by definition, $\overbar{A \vee B} = A \wedge B$.
+Therefore:
+
+\begin{align*}
+Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) = \emptyset &\Leftrightarrow \overbar{Adj(C_{i}, H_{O}) - Adj(C_{j}, H_{O}) \neq \emptyset}\\
+&\Leftrightarrow \overbar{(Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) \neq \emptyset)}\\
+&\Leftrightarrow (Adj(C_{i}, K_{1}) - Adj(C_{j}, K_{1}) = \emptyset \wedge Adj(C_{i}, K_{2}) - Adj(C_{j}, K_{2}) = \emptyset)
+\end{align*}
+\end{proof}
+
+\begin{lemma}\label{lemma:intersection}
+The intersection of $Adj(I_{j},Ctn)$ and $Adj(I_{i},Ctn)$ satisfies $Adj(I_{i}, Ctn) \cap Adj(I_{j}, Ctn) = \{ e \in U_{Ctn} | I_{i} \sqsubseteq e \wedge I_{j} \sqsubseteq e  \}$.
+\end{lemma}
+
+\begin{proof}
+Definition \ref{def:AdjI} states that for any intentional definition $I$ and container $Ctn$, $Adj(I,Ctn) = \{ e \in U_{Ctn} | I \sqsubseteq e \}$. Therefore, the intersection of $Adj(I_{j},Ctn)$ in $Adj(I_{i},Ctn)$ is $Adj(I_{i}, Ctn) \cap Adj(I_{j}, Ctn) = \{ e \in U_{Ctn} | I_{i} \sqsubseteq e | I_{j} \sqsubseteq e \}$.
+\end{proof}
+
+\begin{lemma}\label{lemma:intersectionq}
+The existence of an example $e \in U_{Ctn}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \sqsubseteq e$ can be written $Adj(I_{i}, Ctn) \cap Adj(I_{j}, Ctn) \neq \emptyset$.
+\end{lemma}
+
+\begin{proof}
+The existence of an example $e \in U$ such that an intensional definition $I \sqsubseteq e$ and another intensional definition $I' \sqsubseteq e$ can be written $\{ e \in U | I \sqsubseteq e \wedge I' \sqsubseteq e \} \neq \emptyset$. Since Lemma \ref{lemma:intersection} states that $\{ e \in U_{Ctn} | I_{i} \sqsubseteq e \wedge I_{j} \sqsubseteq e \} \Leftrightarrow Adj(I_{i},Ctn)$ is $Adj(I_{i}, Ctn) \cap Adj(I_{j}, Ctn)$, then the existence of an example $e \in U_{Ctn}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \sqsubseteq e$ can be written $Adj(I_{i}, Ctn) \cap Adj(I_{j}, Ctn) \neq \emptyset$
+\end{proof}
+
+\begin{lemma}\label{lemma:IC equivalence2}
+Let $C$ and $C'$ be two concepts that have as intentional definition respectively $I$ and $I'$. $Adj(C, Ctn) \cap Adj(C', Ctn)$ is equivalent to $Adj(I, Ctn) \cap Adj(I', Ctn)$.
+\end{lemma}
+
+\begin{proof}
+see \ref{lemma:IC equivalence}
+\end{proof}
+
+\begin{lemma}\label{lemma:inter11}
+If $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1})$ is not  empty, then $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O})$ is also not empty.
+\end{lemma}
+
+\begin{proof}
+Let $e$ be an example such that $e \in U_{1}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \sqsubseteq e$. If $e$ exists, according to Lemma \ref{lemma:intersectionq} $Adj(I_{i}, K_{1}) \cap Adj(I_{j}, K_{1}) \neq \emptyset$ and according to Lemma \ref{lemma:IC equivalence2}, $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset$. However, if $e$ exists and since $U_{1} \subset U_{0}$, then $e \in U_{0}$ and therefore $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$. Therefore:
+
+\begin{center}
+$Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:inter12}
+If $Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2})$ is not empty, then $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O})$ is also not empty.
+\end{lemma}
+
+\begin{proof}
+Let $e$ be an example such that $e \in U_{2}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \sqsubseteq e$. If $e$ exists, according to Lemma \ref{lemma:intersectionq} $Adj(I_{i}, K_{2}) \cap Adj(I_{j}, K_{2}) \neq \emptyset$ and according to Lemma \ref{lemma:IC equivalence2}, $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{2}) \neq \emptyset$. However, if $e$ exists and since $U_{2} \subset U_{0}$, then $e \in U_{0}$ and therefore $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$. Therefore:
+
+\begin{center}
+$Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:inter1}
+If $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1})$ is not  empty or $Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2})$ is not empty, then $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O})$ is also not empty.
+\end{lemma}
+
+\begin{proof}
+We know that $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$ (Lemma \ref{lemma:inter11}).
+We know that $Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset \Rightarrow Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$ (Lemma \ref{lemma:inter12}).
+Therefore:
+
+\begin{center}
+$(Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset) \Rightarrow Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$.
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:inter2}
+If $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O})$ is not empty, then either $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1})$ is not empty or $Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2})$ is not empty.
+\end{lemma}
+
+\begin{proof}
+For all $e_{x} \in U_{O}$, since $U_{O} = U_{1} \cup U_{2}$ then $e_{x} \in U_{1} \vee e_{x} \in U_{2}$. Therefore, if $\exists e \in U_{O}$ such that $I_{i} \sqsubseteq e$ and $I_{j} \sqsubseteq e$, then $e \in U_{1} \vee e \in U_{2}$. Therefore, according to Lemma \ref{lemma:intersectionq}, we can write:
+
+\begin{center}
+$Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset \Rightarrow (Adj(C_{i}, K_{1}) \cap  Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset)$.
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:inter}
+$Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O})$ is not empty if and only if $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1})$ is not empty or $Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2})$ is not empty.
+\end{lemma}
+
+\begin{proof}
+We know that $(Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset) \Rightarrow Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset$ (Lemma \ref{lemma:inter1}).
+We know that $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset \Rightarrow (Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset)$ (Lemma \ref{lemma:inter2}). Therefore, since $(A \Rightarrow B) \wedge (B \Rightarrow A)$ is equivalent to $A \Leftrightarrow B$, we can write:
+
+\begin{center}
+$Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset \Leftrightarrow (Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset)$
+\end{center}
+\end{proof}
+
+\begin{lemma}\label{lemma:Inter}
+$Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O})$ is empty if and only if $Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1})$ is empty and $Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2})$ is empty.
+\end{lemma}
+
+\begin{proof}
+We know that $Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset \Leftrightarrow (Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset)$ (Lemma \ref{lemma:inter}).
+We also know that, by definition, $\overbar{A \cap B \neq \emptyset}$ is $A \cap B = \emptyset$.
+Also by definition, $\overbar{A \vee B} = A \wedge B$.
+Therefore:
+
+\begin{align*}
+Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) = \emptyset &\Leftrightarrow \overbar{Adj(C_{i}, H_{O}) \cap Adj(C_{j}, H_{O}) \neq \emptyset}\\
+&\Leftrightarrow \overbar{(Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) \neq \emptyset \vee Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) \neq \emptyset)}\\
+&\Leftrightarrow (Adj(C_{i}, K_{1}) \cap Adj(C_{j}, K_{1}) = \emptyset \wedge Adj(C_{i}, K_{2}) \cap Adj(C_{j}, K_{2}) = \emptyset)
+\end{align*}
+\end{proof}
+
+We remind the definition of pairing partial set:
+
+\pSet*
+
+\begin{lemma}\label{lemma:U1}
+$U_{0,C_{i},\overbar{C_{j}}}$ is empty if and only if $U_{1,C_{i},\overbar{C_{j}}}$ is empty and $U_{2,C_{i},\overbar{C_{j}}}$ is empty.
+\end{lemma}
+
+\begin{proof}
+From lemma \ref{lemma:SD} we know that $Adj(C_{i}, U_{O}) - Adj(C_{j}, U_{O}) = \emptyset  \Leftrightarrow ( Adj(C_{i}, U_{1}) - Adj(C_{j}, U_{1}) = \emptyset  \wedge Adj(C_{i}, U_{2}) - Adj(C_{j}, U_{2}) = \emptyset )$ and therefore by Definition \ref{def:PSet} it holds that $U_{0,C_i,\overbar{C_j}} = \emptyset \Leftrightarrow  (U_{1,C_i,\overbar{C_j}} = \emptyset \wedge U_{2,C_i,\overbar{C_j}} = \emptyset)$
+\end{proof}
+
+
+\begin{lemma}\label{lemma:U2}
+$U_{0,C_{i},C_{j}}$ is empty if and only if $U_{1,C_{i},C_{j}}$ is empty and $U_{2,C_{i},C_{j}}$ is empty.
+\end{lemma}
+
+\begin{proof}
+From the lemma \ref{lemma:Inter} we know that $Adj(C_{i}, U_{O}) \cap Adj(C_{j}, U_{O}) = \emptyset  \Leftrightarrow (Adj(C_{i}, U_{1}) \cap Adj(C_{j}, U_{1}) = \emptyset \wedge Adj(C_{i}, U_{2}) \cap Adj(C_{j}, U_{2}) = \emptyset)$ and therefore by Definition \ref{def:PSet} it holds that $U_{0,C_i,C_j} \Leftrightarrow  (U_{1,C_i,C_j} = \emptyset \wedge U_{2,C_i,C_j} = \emptyset)$.
+\end{proof}
+
+\begin{lemma}\label{lemma:U3}
+$U_{0,\overbar{C_{i}},C_{j}}$ is empty if and only if $U_{1,\overbar{C_{i}},C_{j}}$ is empty and $U_{2,\overbar{C_{i}},C_{j}}$ is empty.
+\end{lemma}
+
+\begin{proof}
+From the lemma \ref{lemma:SD} we know that $Adj(C_{i}, U_{O}) - Adj(C_{j}, U_{O}) = \emptyset  \Leftrightarrow (Adj(C_{i}, U_{1}) - Adj(C_{j}, U_{1}) = \emptyset \wedge Adj(C_{i}, U_{2}) - Adj(C_{j}, U_{2}) = \emptyset)$. Switching the variables $i$ and $j$, this is equivalent to $Adj(C_{j}, U_{O}) - Adj(C_{i}, U_{O}) = \emptyset  \Leftrightarrow (Adj(C_{j}, U_{1}) - Adj(C_{i}, U_{1}) = \emptyset \wedge Adj(C_{j}, U_{2}) - Adj(C_{i}, U_{2}) = \emptyset)$. Therefore, by Definition \ref{def:PSet} it holds that $U_{0,\overbar{C_i},C_j} \Leftrightarrow  (U_{1,\overbar{C_i},C_j} = \emptyset \wedge U_{2,\overbar{C_i},C_j} = \emptyset)$
+\end{proof}
+
+The r-triplets $r(C_{i}, C_{j}, U_{O})$, $r(C_{i}, C_{j}, U_{1})$ and $r(C_{i},C_{j},U_{2})$ are defined by the values of the pairing partial sets as presented in the definition \ref{def:RTriplet} that we recall below:
+
+\rTriplet* 
+
+Moreover, the values of the pairing partial sets from local contexts are linked to the values of the pairing partial sets from the overall context as shown in the lemmas \ref{lemma:U1}, \ref{lemma:U2} and \ref{lemma:U3}, therefore it is possible to find the values of the triplet $r(C_{i}, C_{j}, U_{O})$ knowing the values of the triplets $r(C_{i}, C_{j}, U_{1})$ and $r(C_{i},C_{j},U_{2})$.
+
+\begin{lemma}\label{lemma:b-1}
+Considering the triplets $r(C_{i},C_{j},U_{1}) = (b_{-1}, b_{0}, b_{1})$ and $r(C_{i},C_{j},U_{2}) = (b_{-1}', b_{0}', b_{1}')$ and $r(C_{i}, C_{j}, U_{O}) = (b_{-1}'', b_{0}'', b_{1}'')$, $b_{-1}''$ is equal to 0 if and only if $b_{-1}$ and $b_{-1}'$ are equal to 0. $b_{-1}''$ is equal to 1 otherwise.
+\end{lemma}
+
+\begin{proof}
+According to the definition \ref{def:RTriplet}, $b_{-1}'' = 0$ if and only if $U_{0,C_i,\overbar{C_j}} = \emptyset$. However, according to the lemma \ref{lemma:U1} $U_{0,C_i,\overbar{C_j}} = \emptyset$ if and only if $U_{1,C_i,\overbar{C_j}} = \emptyset$ and $U_{2,C_i,\overbar{C_j}} = \emptyset$. The definition \ref{def:RTriplet} states that $(U_{1,C_i,\overbar{C_j}} = \emptyset$ if and only if $b_{-1} = 0$ and $(U_{2,C_i,\overbar{C_j}} = \emptyset$ if and only if $b_{-1}' = 0$. Therefore, $b_{-1}'' = 0$ if and only if $b_{-1} = 0$ and $b_{-1}' = 0$.
+\end{proof}
+
+\begin{lemma}\label{lemma:b0}
+Considering the triplets $r(C_{i},C_{j},U_{1}) = (b_{-1}, b_{0}, b_{1})$ and $r(C_{i},C_{j},U_{2}) = (b_{-1}', b_{0}', b_{1}')$ and $r(C_{i}, C_{j}, U_{O}) = (b_{-1}'', b_{0}'', b_{1}'')$, $b_{0}''$ is equal to 0 if and only $b_{0}$ and $b_{0}'$ are equal to 0. $b_{0}''$ is equal to 1 otherwise.
+\end{lemma}
+
+\begin{proof}
+According to the definition \ref{def:RTriplet}, $b_{0}'' = 0$ if and only if $U_{0,C_i,C_{j}} = \emptyset$. However, according to the lemma \ref{lemma:U2} $U_{0,C_i,C_{j}} = \emptyset$ if and only if $(U_{1,C_i,C_{j}} = \emptyset$ and $U_{2,C_i,C_{j}} = \emptyset)$. The definition \ref{def:RTriplet} states that $(U_{1,C_i,C_{j}} = \emptyset$ if and only if $b_{0} = 0$ and $(U_{2,C_i,C_{j}} = \emptyset$ if and only if $b_{0}' = 0$. Therefore, $b_{0}'' = 0$ if and only if $b_{0} = 0$ and $b_{0}' = 0$.
+\end{proof}
+
+\begin{lemma}\label{lemma:b1}
+Considering the triplets $r(C_{i},C_{j},U_{1}) = (b_{-1}, b_{0}, b_{1})$ and $r(C_{i},C_{j},U_{2}) = (b_{-1}', b_{0}', b_{1}')$ and $r(C_{i}, C_{j}, U_{O}) = (b_{-1}'', b_{0}'', b_{1}'')$, $b_{1}''$ is equal to 0 if and only $b_{1}$ and $b_{1}'$ are equal to 0. $b_{1}''$ is equal to 1 otherwise.
+\end{lemma}
+
+\begin{proof}
+According to the definition \ref{def:RTriplet}, $b_{1}'' = 0$ if and only if $U_{0,\overbar{C_i},C_j} = \emptyset$. However, according to the lemma \ref{lemma:U3} $U_{0,\overbar{C_i},C_{j}} = \emptyset$ if and only if $(U_{1,\overbar{C_i},C_{j}} = \emptyset$ and $U_{2,\overbar{C_i},C_{j}} = \emptyset)$. The definition \ref{def:RTriplet} states that $(U_{1,\overbar{C_i},C_{j}} = \emptyset$ if and only if $b_{1} = 0$ and $(U_{2,\overbar{C_i},C_{j}} = \emptyset$ if and only if $b_{1}' = 0$. Therefore, $b_{1}'' = 0$ if and only if $b_{1} = 0$ and $b_{1}' = 0$.
+\end{proof}
+
+The precedent lemmas are enough to prove Theorem \ref{thm:Overall}, theorem that we recall below:
+
+\Overall*
+
+\begin{proof}
+We can prove that $b_{-1}'' = 0$ if and only if $b_{-1} = 0$ and $b_{-1}' = 0$ (Lemma \ref{lemma:b-1}).
+We can prove that $b_{0}'' = 0$ if and only if $b_{0} = 0$ and $b_{0}' = 0$ (Lemma \ref{lemma:b0}).
+We can prove that $b_{1}'' = 0$ if and only if $b_{1} = 0$ and $b_{1}' = 0$ (Lemma \ref{lemma:b1}).
+Therefore, for all $n \in \{-1, 0, 1\}$, the element of the overall triplet $b_{n}''=0$  if and only if $b_{n} = 0$ and $b_{n}' = 0$, and otherwise $b_{n}''=1$.
+\end{proof}

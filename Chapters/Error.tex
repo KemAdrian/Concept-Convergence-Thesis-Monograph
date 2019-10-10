@@ -1,0 +1,306 @@
+\section{General Idea}
+\label{sec:DoGGenIdea}
+
+Among the three semiotic elements of the concept, the intensional definition stands aside. Unlike the two other semiotic elements -- the sign and the extensional definition -- the intensional definition is not initially  present in the data used by the agents to create concepts: it is the element that has to be learned. The intensional definition is created by the agent through inductive learning, which means that it can suffer from some of the limitations that are frequently encountered in machine learning. Each intensional definition is an attempt at a binary classification (see Section \ref{sec:funCreaConA}), and this classification suffers from two limitations associated with every machine learning classifiers:
+
+\begin{enumerate}
+    \item it requires a certain number of positive and negative examples to be able to learn, and
+    \item it is likely to produce false positives and negatives
+\end{enumerate}
+
+
+More generally, we discussed in Section \ref{sec:funCreaConE} that when an agent creates a concept $C$ from right-path associations, it needs a class $U(\mapsto s)$ and its associated sign $s$. In order to be able to use inductive learning, the number of examples in the class $U(\mapsto s)$ should be above a certain threshold. We will call this threshold $\tau_{1}$. Upon learning the new concept $C$ from the right-path associations $U \mapsto s$, the set of examples $U(\mapsto s)$ should become the extensional definition of $C$, admitting that the classification ended with an accuracy of 1. Therefore, since $U(\mapsto s) \geq \tau_{1}$, the extensional definition $E(C)$ is expected to have at least $\tau_{1}$ examples. Therefore, during their argumentation, the agents should not consider possible to have concepts that are expected to have less than $\tau_{1}$ examples -- and moreover they should never try to create a such concept. This remark collides with the fact the until now, agents can consider pairing partial sets with a minimum of one example as non empty which can cause them to try to create concepts for these partial sets. This can for instance be the case during the resolution of a semantic disagreement, as we discussed in Section \ref{sec:Resolution}.
+
+The situation described in the paragraph above assumes that the inductive learning can be achieved with an accuracy of 1, which is, as we mentioned earlier, unlikely to happen -- especially because one agent is expected to have access to only roughly half of the examples of the overall contrast set during the right-path association learning of one of its initial concepts, which cannot guarantee a good accuracy over the other half of the overall context. 
+
+Let $A_{1}$ and $A_{2}$ be two agents. Each agent receives an equal and homogeneous partition of a set of left-path associations $U \mapsto S = \{s \ldots s_{n} \}$. Each agent $A_{k}$ tries to learn a new concept $C_{k} = \langle s, I_{k}, E_{k} \rangle$. The intensional definition $I_{1}$ learned by the agent $A_{1}$ is likely to either not subsume examples of $A_{2}$'s context that $A_{2}$ associates with $s$ (first-type error), or to subsume examples from $A_{2}$'s context that $A_{2}$ does not associate with $s$ (second-type error). That's why upon receiving $I_{1}$ and building a copy of $C_{1}$ in its hypothesis, $A_{2}$ cannot assume that the examples of $U_{2,C1,\overbar{C2}}$ and $U_{2,\overbar{C1},C2}$ are examples from a non-equivalent concept of $A_{1}$ as it should be the case with the pairing function presented in Section $\ref{sec:Relations}$. The agents need to decide of a threshold $\tau_{2}$ for the first-type error, and a threshold $\tau_{3}$ for the second-type error, under which the agents assume that the size of a pairing partial set is not indicative of any hidden concept, but of a lack of accuracy from the inductive learning instead.
+
+Instead of having three different thresholds, we chose to regroup them in one error threshold since they all aim to change the same thing: the minimal amount of examples in a pairing partial set for it to not be considered as empty. This unique threshold $\tau_{E}$ is the highest from the expected $\tau_{1}$, $\tau_{2}$ and $\tau_{3}$. In our scenarios and experiments, this threshold $\tau$ is given as a parameter to both agents before the communication starts. While it is probably possible to grant the multi-agent system the ability to find the optimal value for $\tau$ by itself, this is not the object of this thesis and we will not discuss it. In the general case where concepts from a same contrast set have roughly the same number of examples, $\tau_{2}$ and $\tau_{3}$ are expected to be inferior to $\tau_{1}$ -- the size of a concept should be greater than the first-type and second-type errors, otherwise the classifier's performances are so poor that it should not be use in the first place -- and therefore $\tau = \tau_{1}$ in most practical cases.
+
+There are two immediate points that can be noticed on the error threshold. The first is that the error threshold cannot be inferior to one, as an error threshold of zero or less would imply that pairing partial sets considered as empty have a negative cardinality, which is strictly impossible in our model. The second is that with an error threshold $\tau = 1$, our model remains as it was before the introduction of the error threshold. An empty set is a set with no example, an any number of example above one results in the set being considered as non-empty.
+
+At this point, it is important to emphasis the fact that we consider the pairing partial sets to be empty if their cardinality is under the threshold $\tau$ purely from the point of view of our pairing function. The empty set $\emptyset$ still remains a set with a 0 cardinality. However, two concepts $C_{1}$ and $C_{2}$ such that:
+
+\begin{itemize}
+    \item $U_{O,C1,C2} < \tau$
+    \item $U_{O,\overbar{C1},C2} < \tau$
+    \item $U_{O,C1,\overbar{C2}} \geq \tau$
+\end{itemize}
+
+will now be considered as equivalent such that $C_{1} \equiv_{UO} C_{2}$, as if $U_{O,\overbar{C1},C2}$ and $U_{O,C1,\overbar{C2}}$ were empty while using our initial pairing function.
+
+The introduction of the error threshold, and the evolution that it induces in the notion of equivalence between concepts, requires the modifications of several definitions. An implementation of our model with the definitions below and an error threshold $\tau > 1$ is referred as an integer-triplet model, since the r-triplets will now store the cardinality of the pairing partial sets instead of "0" for empty and "1" for non-empty. On the contrary, an implementation of our model with the definitions presented in Chapter \ref{Approach} is referred as a boolean-triplet model, since the r-triplets store "1" and "0" as boolean variables for the truthiness of the proposition: \emph{my corresponding pairing partial set is non-empty}.
+
+\section{Effect on Semiotic Elements and Containers}
+\label{sec:DoGEffectCon}
+
+In Definition \ref{def:Con}, we stated that for any concept $C = \langle s, I, E \rangle$ we should have the equality $E = X$ where $X = \{ e \in U | I \sqsubseteq e \}$. If the concept $C$ has been created from left-path associations, this definition is not problematic as: 
+
+\begin{itemize}
+    \item $E \Leftrightarrow Adj(I,U)$
+    \item $\Leftrightarrow \{ e \in U | I \sqsubseteq e \}$
+    \item $\Leftrightarrow X$
+\end{itemize}
+
+The equality $E = X$ is maintained and our definition still stand. However, if the concept is created from right-path associations or through argumentation, the situation is different. In each of these two situations, the extensional definition $E$ of the created concept is the subset $U_{+} \subset U$ that served as the positive examples during the inductive learning. As we now admit a certain degree of error during our inductive learning, the introduction of $\tau$ should be reflected in the relation between $E$ and $U_{+}$ that should no longer have to be an equality.
+
+A solution would be to modify the equality $E = X$ in the definition of concepts, but we prefer to actually modify the creation process of our concepts, in order to keep the equality $E = X$ and prioritize the left-path associations over the right-path associations in our model. If the model admits an error threshold $\tau > 1$, any concept created in a context $U$ should have its extensional definition $E$ be $E = Adj(C_{i}, U)$.
+
+However, the decision to keep $E = X$ impacts directly the contrast sets, that cannot be longer strict partitions. Given the consistent set of right-path associations $U \mapsto S$, such that $S = \{s_{1}, \ldots, s_{n} \}$; if an agent $A$ learns a concept $C_{i}$ for each class $U(\mapsto s_{i})$ with $s_{i} \in S$, then we can now tolerate that 1) $I(C_{i})$ subsumes $\tau_{E}$ examples that are belonging to another class $U(\mapsto s_{j})$, and 2) not subsume $\tau$ examples that are belonging to $U(\mapsto s_{i})$. While the fact that $U \mapsto S$ is consistent means that $(U, \{ C(s_{i}) | s_{i} \in S \})$ should be a contrast set if the inductive learning takes place with a maximal accuracy during the creation of each $C_{i}$, this is not the case if the learning admits a degree of error $\tau_{E}$. Actually, if both $C_{i}$ and $C_{j}$ have bean created with a first-type error of $\tau$, the overlap $E_{i} \cap E_{j}$ can reach $2 \times \tau$. We will note $\tau_{E} = 2 \times \tau$. If we want $(U, \{ C(s_{i}) | s_{i} \in S \})$ to be a contrast set, we must change our definition of a contrast set such that:
+
+\begin{itemize}
+    \item regarding the first point, the intersection between two extensional definitions of two different concepts can be non-empty as long as it is not above the threshold $\tau_{E}$, and
+    \item regarding the second point, we cannot longer guarantee that $E_{1} \cup \ldots \cup E_{n} = U$.
+\end{itemize}
+
+Taking these two limitations into account, we can now give a new definition to contrast sets, Definition \ref{def:CsetDoE}. This definition will replace Definition \ref{def:Cset} in implementations that use an integer-triplet model.
+
+\begin{restatable}[Contrast Set With Degree of Error]{df}{contrastSetDoE}
+\label{def:CsetDoE}
+A contrast set $K = (U_{K}, S_{K} = \{ C_{1}, \ldots ,C_{n} \})$ is a container. For each pair of concepts $C_{i}, C_{j} \in S_{K}$, we should have the following property: $|E(C_{i}) \cap E(C_{j})| < \tau_{E}$. Moreover, the signs of the concepts must be different: $\forall C_{i},C_{j} \in K$, $i \neq j \Rightarrow s(C_{i}) \neq s(C_{j})$.
+\end{restatable}
+
+The other container, the hypothesis, does not tackle the issue of overlapping extensional definitions and never aimed to be a partition. Since no relation between sets of examples were required in the hypothesis, the modification to the definition of concept does not affect the definition of hypotheses.
+
+\section{Effect on Relations Between Concepts}
+\label{sec:DoGEffectRelation}
+
+A field that is extensively affected by the introduction of an error degree is the relation between concepts. We will move from the idea that $\tau$ as an element of a binary classification to go back to the idea of an error tolerance in order for two concepts to remain equivalents in a context. We move from a model where the equivalence between two concepts $C_{1}$ and $C_{2}$ in a context $U$ is defined by $Adj(C_{1}, U) = Adj(C_{2}, U)$ and thus $| Adj(C_{1}, U) \triangle Adj(C_{2}, U)| = 0$, to a model where the equivalence between $A$ and $B$ is defined by $|Adj(C_{1}, U) \triangle Adj(C_{2}, U)| < \tau_{E}$.
+
+\subsection{Assuming a Degree of Error in R-Triplets}
+\label{sec:LPRassumingDoG}
+
+The first step to evaluate the relation between two concepts $C_{i}$ and $C_{j}$ in a context $U$ was to find their pairing partial sets, as presented in Section \ref{sec:PPSet}. These pairing partial sets were allowing us to find the r-triplet of $C_{i}$ and $C_{j}$ in $U$, but the definition of r-triplets was based on whether or not the partial sets were empty. Replacing the notion of set emptiness with the notion of set cardinal inferior to a threshold, we substitute Definition \ref{sec:PPSet} by Definition \ref{def:RTripletDoG} below:
+
+\begin{restatable}[R-Triplet Function with Degree of Error]{df}{rTripletDoG}
+\label{def:RTripletDoG}
+The function $r: \mathbb{X} \times \mathbb{X} \times \mathbb{U} \rightarrow  \mathbb{N}^{3}$, with $\mathbb{X}$ the domain of concepts and $\mathbb{U}$ the domain of all possible contexts, is a function that for each pair of concepts $C_{i}$,$C_{j}$ and for a given context $U$ yields a triplet $(b_{-1},b_{0},b_{1})$ called r-triplet accordingly to the definition below:
+
+\begin{itemize}
+\item $b_{-1} = \left\{
+	\begin{array}{ll}
+		0  & \mbox{if } |U_{C_i,\overbar{C}_j}| < \tau \\
+		1 & \mbox{otherwise}
+	\end{array}
+\right.$
+\item $b_{0} = \left\{
+	\begin{array}{ll}
+		0  & \mbox{if } |U_{C_i,C_j}| < \tau \\
+		1 & \mbox{otherwise}
+	\end{array}
+\right.$
+\item $b_{1} = \left\{
+	\begin{array}{ll}
+		0  & \mbox{if } |U_{\overbar{C}_i,C_j}| < \tau \\
+		1 & \mbox{otherwise}
+	\end{array}
+\right.$
+\end{itemize}
+\end{restatable}
+
+Using the r-triplet function defined in Definition \ref{def:RTripletDoG} with the Definition \ref{def:Relation} to find pairing relations between concepts results in more indulgent pairing relations. Small overlaps between concepts do not necessarily results into concepts not being equivalents. In this configuration, we say that our pairing relations are assuming a degree of error $\tau_{E}$. While a simple substitution of Definition \ref{def:RTriplet} by Definition \ref{def:RTripletDoG} can work as a simplified model, it is theoretically incorrect as we will now demonstrate.
+
+\subsection{Problem with Inferring Overall R-Triplets}
+
+Simply substituting Definition \ref{def:RTriplet} by Definition \ref{def:RTripletDoG} in our model is incorrect, since Theorem \ref{thm:Overall} does not held with r-triplets defined by Definition \ref{def:RTripletDoG} as stated in Proposition \ref{pp:ImpOverall}. This means that our changes to the definition of r-triplets are preventing the inference of overall r-triplets from local ones. The inference of overall r-triplets by local ones being a key function of our argumentation model, further modifications of the definition of r-triplets are required. These modifications should allow to both: assume a degree of error for our pairing relations, and infer overall triplets from the local ones.
+
+\begin{restatable}[Impossibility to Infer Overall Pairing Relation]{prp}{ImpOverall}\label{pp:ImpOverall}
+Let $A_{1}$ and $A_{2}$ be two  agents, $A_{1}$ partitioning the context $U_{1}$ in the contrast set $K_{1} = \{ U_{1}, S_{1} \}$ and $A_{2}$ partitioning the context $U_{2}$ in the contrast set $K_{2} = \{ U_{2}, S_{2}\}$. Let $C_{i} \in S_{1}$ and $C_{j} \in S_{2}$ be two concepts, and
+
+\begin{itemize}
+%\item the two local triplets:
+%\begin{itemize}
+\item let $r(C_{i},C_{j},U_{1}) = (b_{-1}, b_{0}, b_{1})$ be the local triplet of $A_{1}$
+\item let $r(C_{i},C_{j},U_{2}) = (b'_{-1}, b'_{0}, b'_{1})$ be the local triplet of $A_{2}$
+%\end{itemize}
+\item  let $r(C_{i}, C_{j}, U_{O}) = (b''_{-1}, b''_{0}, b''_{1})$ be the overall triplet $A_{1}$ and $A_{2}$
+\end{itemize}
+
+While using Definition \ref{def:RTripletDoG} to define r-triplets instead of \ref{def:RTriplet} and for any $n \in \{-1, 0, 1\}$, the fact that $b_{n} = 0$ and $b_{n}' = 0$ does not necessarily mean that $b_{n}'' = 0$.
+\end{restatable}
+
+\begin{proof}
+See Appendix \ref{ap:2}.
+\end{proof}
+
+\subsection{Finding Overall R-Triplets in Integer-Triplet Models}
+
+In order to go through this issue, there is a necessity to differentiate the aim of \emph{local} r-triplets and \emph{overall} r-triplets. While computing pairing partial sets and r-triplets, the agents' final goal is to find the overall r-triplet of a pair of concepts that will give away the overall pairing relation between these two concepts. The local r-triplets are just a transitory step to help the agents finding the overall r-triplets without having to exchange their whole contexts.
+
+When the model admits a degree of error, the agents will need more transitory steps to determine their overall pairing relations. This will be reflected by new types of r-triplet that represent new steps of the transition between local pairing partial sets and overall pairing relations. The last type of r-triplet should be the same as the input of the pairing function presented in \ref{sec:Relations}, that associates each possible triplet of booleans to a type of pairing relation.
+
+\subsubsection{Local R-Triplets}
+
+% local r-triplets
+Let $A_{1}$ and $A_{2}$ be two  agents, $A_{1}$ partitioning the context $U_{1}$ in the contrast set $K_{1} = \{ U_{1}, S_{1} \}$ and $A_{2}$ partitioning the context $U_{2}$ in the contrast set $K_{2} = \{ U_{2}, S_{2}\}$. Let $C_{i} \in S_{1}$ and $C_{j} \in S_{2}$ be two concepts. In order to find the pairing relation between two concepts $C_{i}$ and $C_{j}$, the first step that the two agents can take is to find their local r-triplets. However, the local r-triplets need to carry more information than what is defined in Definition \ref{def:RTripletDoG}, as we have shown through Proposition \ref{pp:ImpOverall} that local boolean r-triplets were useless to infer overall the r-triplet. For this reason, the local r-triplets are now using integers. These integer values represent the size of their associated pairing partial sets, and will help the agents to determine the sizes of the different overall pairing partial sets. Once the sizes of the different overall pairing partial sets have been determined, the agents can find which overall pairing partial set contains $\tau$ examples or more, and therefore associate an overall pairing relation to $C_{i}$ and $C_{j}$ which acknowledge an error degree. These local r-triplets of our integer-triplet model are presented in Definition \ref{def:lRTriplet} below:
+
+\begin{restatable}[Local R-Triplet]{df}{lRT}
+\label{def:lRTriplet}
+The function $r_{l}: \mathbb{X} \times \mathbb{X} \times \mathbb{U} \rightarrow  \mathbb{N}^{3}$, with $\mathbb{X}$ the domain of concepts and $\mathbb{U}$ the domain of all local contexts, is a function that for each pair of concepts $C_{i}$,$C_{j}$ and for a given context $U$ yields a triplet $(i_{-1},i_{0},i_{1})$ called local r-triplet accordingly to the definition below:
+
+\begin{itemize}
+\item $i_{-1} = \left\{
+	\begin{array}{ll}
+		|U_{C_i,\overbar{C}_j}|  & \mbox{if } |U_{C_i,\overbar{C}_j}| < \tau \\
+		\tau & \mbox{otherwise}
+	\end{array}
+\right.$
+\item $i_{0} = \left\{
+	\begin{array}{ll}
+		|U_{C_i,C_j}|  & \mbox{if } |U_{C_i,C_j}| < \tau \\
+		\tau & \mbox{otherwise}
+	\end{array}
+\right.$
+\item $i_{1} = \left\{
+	\begin{array}{ll}
+		|U_{\overbar{C}_i,C_j}|  & \mbox{if } |U_{\overbar{C}_i,C_j}| < \tau \\
+		\tau & \mbox{otherwise}
+	\end{array}
+\right.$
+\end{itemize}
+\end{restatable}
+
+\subsubsection{Loose R-Triplets}
+
+% overall loose r-triplets
+In the boolean-triplet model, the agents could combine their local r-triplets to find an overall r-triplet. From the overall r-triplet, the agents could know which overall pairing partial sets were empty and which were not. In a model that assumes a degree of error, the agents do not aim to find which overall pairing partial sets are empty but which overall pairing partial sets contain less than $\tau$ examples. From their two local r-triplets, the agents can infer some values of the overall r-triplet, but some other values will remain unknown for the moment. An overall r-triplet that contains unknown values is an overall \emph{loose} r-triplet. Loose r-triplets cannot be used to find the overall pairing relation between $C_{i}$ and $C_{j}$ directly, but remains a good starting point. The overall loose r-triplets of two local r-triplets is defined below in Definition \ref{def:olRTriplet}:
+
+\begin{restatable}[Overall Loose R-Triplet]{df}{olRT}
+\label{def:olRTriplet}
+The function $r_{ol}: \mathbb{N}^{3} \times \mathbb{N}^{3} \rightarrow  \mathbb{N}^{3}$ is a function that for each pair of r-triplet $(i'_{-1}, i'_{0}, i'_{1})$, $(i''_{-1}, i''_{0}, i''_{1})$ yields a triplet $(i_{-1},i_{0},i_{1})$ called overall loose r-triplet accordingly to the definition below:
+
+\begin{center}
+    $i_{n} = \left\{
+	\begin{array}{lll}
+		\tau & \mbox{if } i'_{n} \geq \tau \mbox{ or } i''_{n} \geq \tau \\
+		0    & \mbox{if } i'_{n} + i''_{n} < \tau \\
+		? & \mbox{otherwise}
+	\end{array}
+\right.$
+\end{center}
+
+\end{restatable}
+
+If loose r-triplets are a good intermediary step to find the overall r-triplet, it is because it already gives some partial information on which overall pairing partial sets contain more than $\tau$ examples. This property of the loose r-triplets is explained in Property \ref{pp:olUseful}.
+
+\begin{restatable}[Loose R-Triplet Usefulness]{pp}{olUseful}
+\label{pp:olUseful}
+Let $A_{1}$ and $A_{2}$ be two  agents, $A_{1}$ partitioning the context $U_{1}$ in the contrast set $K_{1} = \{ U_{1}, S_{1} \}$ and $A_{2}$ partitioning the context $U_{2}$ in the contrast set $K_{2} = \{ U_{2}, S_{2}\}$. Let $C_{i} \in S_{1}$ and $C_{j} \in S_{2}$ be two concepts, and let $r_{1}$ and $r_{2}$ be two local r-triplets such that:
+
+\begin{itemize}
+    \item $r_{1} = r_{l}(C_{i}, C_{j}, U_{1})$, and
+    \item $r_{2} = r_{l}(C_{i}, C_{j}, U_{2})$.
+\end{itemize}
+
+For each value $i_{n}$ from the triplet $r_{ol}(r_{1},r_{2})$, its associated pairing partial set $U_{O}(n)$ contains less than $\tau$ examples if an only if $i_{n} = 0$, and contains at least $\tau$ examples if and only if $i_{n} = \tau$.
+\end{restatable}
+
+\begin{proof}
+See Appendix \ref{}.
+\end{proof}
+
+\subsubsection{Secured R-Triplets}
+
+% overall secured r-triplets
+Once the agents have computed the loose r-triplets, they need to attribute an integer to the elements of unknown values. The next step for the agent is to produce a r-triplet that implements Property \ref{pp:olUseful}, but without any unknown value. Since according to Property \ref{pp:olUseful} the unknown value $i_{n}$ of a loose triplet $r$ should be (1):
+
+\begin{itemize}
+    \item 0 if and only if $|U_{O}(n)| < 0$, and
+    \item $\tau$ if and only if $|U_{O}(n)| \geq 0$,
+\end{itemize}
+
+then the agents can find each unknown value by $i_{n}$ accessing the corresponding pairing partial set $U_{O}(n)$. In Section \ref{sec:Overall}, we mentioned that the overall pairing partial set $U_{O}(n)$ is the union of the two local pairing partial sets $U_{1}(n)$ and $U_{2}(n)$. The issue is that each local pairing partial set $U_{k}(n)$ is a subset of the local context $U_{k}$ of the agent $A_{k}$, and is supposed to be accessed only by $U_{k}$. However, we saw in Section \ref{sec:funMessages} that an agent can choose to share examples with the other, by sending a message \emph{Examples()}. It is therefore possible for an agent $A_{k}$ to access an overall pairing partial set $U_{O}(n)$, as long as the other agent $A_{-k}$ sends the examples $U_{-k}(n)$ to $A_{k}$.
+
+Upon accessing an overall pairing partial set $U_{O}(n)$ that is associated an to unknown value $i_{n}$ of a loose r-triplet, an agent can compute an overall \emph{secured} r-triplet of this loose r-triplet, where the unknown value $i_{n}$ is \emph{secured} -- replaced by a known value -- by adding information from an external set of examples $U^{*}$. The notion of secured r-triplet is defined below in Definition \ref{def:osRTriplet}.
+
+\begin{restatable}[Overall Secured R-Triplet]{df}{osRT}\label{def:osRTriplet}
+
+The function $r_{os}: \mathbb{N}^{3} \times \mathbb{U} \rightarrow  \mathbb{N}^{3}$, with $\mathbb{U}$ being the domain of all sets of examples, is a function that, for a loose r-triplet $(i'_{-1}, i'_{0}, i'_{1})$ and a given set of example $U*$, yields a triplet $(i_{-1},i_{0},i_{1})$ called overall secured r-triplet accordingly to the definition below:
+
+\begin{center}
+    $i_{n} = \left\{
+	\begin{array}{lll}
+		i'_{n} & \mbox{if } i'_{n} \mbox{ is known }  \\
+		U^{*}(n) & \mbox{otherwise } \\
+	\end{array}
+\right.$
+\end{center}
+
+\end{restatable}
+
+Secured r-triplets are useful for multiple reasons. Ultimately, they are the first presented r-triplets that can achieve the goal that we set: under the right conditions, they can indicate which overall pairing partial sets contain $\tau$ examples or more and which does not. As we mentioned at the beginning of this section, the function $r_{os}$ replaces an unknown value $i_{n}$ of a loose r-triplet $r = r_{ol}(C_{i}, C_{j}, U_{O})$ by a known value $i'_{n}$ that is equal to:
+
+\begin{itemize}
+    \item 0 if and only if $|U_{O}(n)| < 0$, and
+    \item $\tau$ if and only if $|U_{O}(n)| \geq 0$,
+\end{itemize}
+
+as long as $r_{os}$ takes as input parameters the triplet $r$ and \emph{any} super-set of $U_{O}(n)$. This property is formalized below in Property \ref{pp:slUseful}.
+
+\begin{restatable}[Secured R-Triplet Usefulness]{pp}{slUseful}
+\label{pp:slUseful}
+
+\end{restatable}
+
+\begin{proof}
+See Appendix \ref{}.
+\end{proof}
+
+This means that if a loose r-triplet $r$ contains two missing values $i_{m}$ and $i_{n}$, the secure r-triplet  $r_{os}(r,$ $U_{1}(m)$$\cup$$U_{1}(n)$$\cup$$U_{2}(m)$$\cup$$U_{2}(n))$ results in a triplet with no unknown value, and where each r
+
+Moreover, secured r-triplets that have unknown values of different indexes can be combined to 
+
+\subsubsection{Binarized R-Triplet}
+
+% overall binarized r-triplets
+Once an agent has found the overall secured r-triplet $r_{os}$ for the pair of concepts $C_{i}, C_{j}$, it still needs to transform this triplet of integers into a triplet of booleans. The triplet $r_{os}$ can only contain zeros and $\tau$s, therefore the agent replaces each value $i_{x}$ of $r_{os}$ that are equal to $\tau$ by 1 and obtain a triplet of booleans. We call this final triplet the overall \emph{binarized} r-triplet, noted $r_{ob}$. The binarized triplet can be used along with the pairing function presented in Definition \ref{def:Relation} to find the overall pairing relation between $C_{i}$ and $C_{j}$. Recall that since Theorem \ref{thm:ROverall} was deduced from Theorem \ref{thm:Overall}, and since Theorem \ref{thm:Overall} has been invalidated in the integer-triplet model, therefore Theorem \ref{thm:ROverall} is also invalidated. The definition of binarized r-triplet is presented below in Definition \ref{def:bRTriplet} is compliant with the definition of r-triplets given in Definition \ref{def:RTripletDoG}.
+
+\begin{restatable}[Binarized Overall R-Triplet]{df}{bRT}\label{def:bRTriplet}
+
+\end{restatable}
+
+\subsubsection{Optimization}
+% Case of same-size local pairing partial sets
+If we follow the method described in the above paragraphs, an unknown value $i_{x}$ from the loose r-triplet $r_{ol}(C_{i},C_{j},U_{O})$ pushes each agent $A_{k}$ to send its pairing partial set $U_{k,x}$ to the other agent in the case where $|U_{1,x}| = |U_{2,x}|$. In this situation, we call the unknown value $i_{x}$ a \emph{draw} value. This increases the number of example exchanged when only one of these two pairing partial sets needs to be exchanged. Since the argumentation protocol is turn-based, the agents can bypass this issue by knowing if one of the two pairing partial sets $U_{1,x}$ or $U_{2,x}$ has already been exchanged when it is their turn to send one of them. If it is the case, the agent do not need to send a redundant information as one of the two pairing partial set will already already be accounted for in both semi-secured r-triplets.
+
+\subsection{Example of Overall Pairing Relation Retrieving}
+
+% Example
+In order to illustrate how two agents can determine the overall pairing relation between two of their concepts, we propose the following scenario. Let $A_{1}$ and $A_{2}$ be two agents, with $A_{1}$ having a contrast set $K_{1} = \{S_{1}, U_{1} \}$ and $A_{2}$ having a contrast set $K_{2} = \{S_{2}, U_{2}\}$. Let $C_{1}$ and $C_{2}$ be two concepts such that $C_{1} \in S_{1}$ and $C_{2} \in S_{2}$. The agents are in an argumentation where they admit that a degree of error $\tau = 10$ is possible. Admitting that $A_{1}$ and $A_{2}$ have both access to $s(C_{1}),s(C_{2})$ and $I(C_{1}), I(C_{2})$, the agents compute their local r-triplets and:
+
+\begin{itemize}
+    \item $A_{1}$ finds that $r(C_{1},C_{2}, U_{1}) = (5,12,8)$
+    \item $A_{2}$ finds that $r(C_{1},C_{2}, U_{2}) = (4,9,9)$
+\end{itemize}
+
+The agents compare each values $i_{k,x}$ of their local r-triplets that share a same index $x \in \{-1,0,1\}$. For $x = 0$, $i_{1,-1}$ is 5 and $i_{2,-1}$ is 4. Their sum is $9$, which is less than $\tau$. Therefore, the overall pairing partial set $U_{O}(i_{-1})$ cannot contain $\tau$ examples, even if $U_{1}(i_{-1}) \cap U_{2}(i_{-1}) = \emptyset$. For $x = 1$, $i_{1,0}$ is 12 and $i_{2,0}$ is 9. Here, the value of $i_{2,0}$ does not matter because the value of $i_{1,0}$ is already above $\tau$. Since:
+
+\begin{itemize}
+    \item $U_{1}(i_{0}) \geq \tau$
+    \item $\Leftrightarrow U_{1}(i_{0}) \cup U_{2}(i_{0}) \geq \tau$
+    \item $\Leftrightarrow U_{O}(i_{0}) \geq \tau$
+\end{itemize}
+
+the size of the overall pairing partial set associated to the index $1$ is above $\tau$, and its value should be $\tau$. For $x = 1$, the situation is more complex. Since $i_{1,1}$ is equal to 8 and $i_{2,1}$ is equal to 9, their sum is 17 which means that if $U_{1}(i_{1})$ and $U_{2}(i_{1})$ were disjoint, the overall pairing partial set $U_{O}(i_{1})$ would contain well above $\tau$ examples. However, in the case where $U_{1}(i_{1}) \subset U_{2}(i_{1})$, $U_{O}(i_{1})$ would only contain 9 examples. The agents cannot compare the two local pairing partial sets, as they only share the intensional definitions and signs of the concepts and do not have the same local contexts. The value of $i_{O,1}$ is left undefined in the overall r-triplet. At this point, the agents have computed that the overall r-triplet $r_{O}$ is equal to $(0,\tau,?)$.
+
+In order for one of the two agents $A_{k}$ to compute the actual value of $i_{O,1}$, one of them needs to add the pairing partial set $U_{-k}(i_{1})$ to its context. Thanks to Property \ref{pp:CompUndefinedValue}, $A_{k}$ will be able to compute the value of $i_{O,1}$. Instead of having the two agents sending their examples, the agent that has the least examples in its pairing partial set can send them to the other agent, that will compute $i_{O,1}$ and then share it back. Doing so decreases the number of examples that need to be exchanged between the agents. In our scenario, $A_{1}$ sends the 8 examples of $U_{1}(i_{1})$ to $A_{2}$. Upon receiving them, $A_{2}$ adds $U_{1}(i_{1})$ to its context $U_{2}$. Then, $A_{2}$ observes that the new pairing partial set $U_{2}(i_{1})$ contains 10 elements. $A_{2}$ replaces the undefined value ``?'' in $r_{O}$ by $\tau$. Then, $A_{2}$ can share $r_{O} = (0, \tau, \tau)$ with $A_{1}$.
+
+
+\section{Effect on the Transitivity of the Equivalence Pairing Relation}
+\label{sec:TransitivityLoss}
+
+A relation of equivalence is reflexive, symmetrical and transitive. Before the introduction of an error degree, the pairing relation of equivalence was verifying all of these properties. Indeed, for any concepts $C_{i}$, $C_{j}$ and $C_{k}$:
+
+\begin{itemize}
+    \item $C_{i} \equiv C_{i}$,
+    \item if $C_{i} \equiv C_{j}$ then $C_{j} \equiv C_{i}$ and
+    \item if $C_{i} \equiv C_{j}$ and $C_{j} \equiv C_{k}$, then $C_{i} \equiv C_{k}$.
+\end{itemize}
+
+\begin{proof}
+See annex \ref{}.
+\end{proof}
+
+However, introducing a degree of error means that our relation of equivalence is not transitive anymore. Figure \ref{} illustrates a situation where $C_{1}$ and $C_{2}$ share more than $\tau$ examples, with $C_{1} - C_{2}$ and $C_{2} - C_{1}$ having both less than $\tau$ examples, meaning that $C_{1}$ and $C_{2}$ are equivalents in $U$. The remark is the same for $C_{2}$ and $C_{3}$. However, $C_{1}$ and $C_{3}$ share less than $\tau$ examples and therefore are not equivalents. This means that while $C_{1} \equiv C_{2}$ and $C_{2} \equiv C_{3}$, $C_{1} \not \equiv C_{3}$. The transitivity of our equivalence is lost.
+
+However, the transitivity of the equivalence relation is needed in our model. For instance, two disjoint concepts $C_{1}$ and $C_{2}$ from a same contrast set that are both equivalent to a third concept $C_{3}$ from another contrast set can cause a dead loop in the argumentation. If $C_{1}$ and $C_{2}$ share the same sign, they are homonyms and cause a homonymy disagreement. If $C_{1}$ and $C_{2}$ have different signs, then at least one of them has a different sign than $C_{3}$ and therefore cause a synonymy disagreement. Therefore $C_{1}$ and $C_{2}$ would need to have the same sign and different signs at the same time, making the mutual intelligibility impossible to reach. The only solution to this problem is to have the transitivity of the equivalence relation enforced by the agents. When the agents detect two non-equivalent concepts that are both equivalent to a third concept, the agents remove one of the two non-equivalent concepts from the argumentation.

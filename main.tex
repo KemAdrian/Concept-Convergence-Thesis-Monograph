@@ -1,0 +1,186 @@
+\documentclass{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+%\usepackage[pdftex]{graphicx}
+\usepackage{enumitem}
+\usepackage{colortbl}
+\usepackage{amsfonts}
+\usepackage{cite}
+\usepackage[toc,page]{appendix}
+\usepackage{tabularx, multirow, hhline}
+\usepackage{thmtools}
+\usepackage{thm-restate}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{setspace}
+\usepackage{anysize}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{subcaption}
+\usepackage{array}
+
+
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern 1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+%\newtheorem{definition}{Definition}[chapter]
+\declaretheorem[name=Definition]{df}
+%\newtheorem{theorem}{Theorem}
+\declaretheorem[name=Theorem]{thm}
+\declaretheorem[name=Proposition]{prp}
+\declaretheorem[name=Property]{pp}
+\newtheorem{lemma}{Lemma}[section]
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex plus 0.5ex minus 0.2ex}
+
+\marginsize{3cm}{3cm}{2.4cm}{2.4cm}
+% {left}{right}{bottom}{top}. 
+
+\title{"Concept Convergence: Argumentation and Agreement on Meaning"}
+\author{"Kemo Adrian"}
+\date{\today}
+
+\begin{document}
+
+%------------------------------------------------------------------------------------------------------------------
+
+%\pagenumbering{roman}
+\pagestyle{plain}
+\thispagestyle{empty}
+
+
+%\vspace{0.79cm}
+\begin{center}
+  \includegraphics[width=10cm]{figs/UAB.png}
+\end{center}
+
+
+{\par
+\centering 
+{\LARGE PhD in Computer Science}
+\par}
+
+\vspace{2mm}
+
+{\par
+\centering 
+{\Large Research line: Artificial Intelligence}
+\par}
+
+
+\vfill{}
+
+\vspace{2mm}
+
+{\par
+\centering 
+\textbf{\Huge  Concept Convergence: Argumentation and Agreement on Meaning }
+\par}
+\vfill{}
+
+\begin{flushright}
+PhD Student:    Kemo Adrian\\
+PhD Advisor:    Prof. Enric Plaza\\  
+PhD Tutor: Prof. Enric Plaza\\
+PhD admission date: December the 17th, 2014
+\end{flushright}
+
+\vfill{}
+%{\par\centering Bellaterra, date \par}
+
+%------------------------------------------------------------------------------------------------------------------
+\pagenumbering{roman}
+\newpage
+
+\section*{Abstract}
+
+Agreement and ambiguity over the meaning of concepts are the two aspects that allow both situated action and diachronic evolution. The study of concept convergence aims at understanding the processes by which individuals can reach an agreement, over the meaning of concepts for a particular purpose in a situated context. The means to reach agreement involves an argumentation process among the individuals involved regarding the concept's meaning, scope, applicability, usefulness, and crispness. Moreover, since concepts are related to other concepts, revising the concept's meaning to reach an agreement may involve revising the meaning of closely related concepts. In the long term, however, what is needed is a deeper exploration and understanding of the agreement over meaning in its formal and social aspects, as well as of the interpersonal mechanisms (like argumentation) for negotiating and agreeing on semantics and meaning in social contexts.
+
+\vspace{5mm}
+\textbf{Keywords:} Meaning, Multi-Agent, Argumentation, Case-Based Reasoning
+
+%\pagebreak
+%------------------------------------------------------------------------------------------------------------------
+
+\vspace{3cm}
+
+\tableofcontents
+
+\newpage
+
+
+%------------------------------------------------------------------------------------------------------------------
+\pagenumbering{arabic}
+
+\chapter{Introduction}\label{Introduction}
+\input{Chapters/Introduction.tex}
+
+\chapter{State of the Art}\label{StateOfTheArt}
+\input{Chapters/State_of_the_Art.tex}
+
+\chapter{Approach}\label{Approach}
+\input{Chapters/Approach.tex}
+
+\chapter{Argumentation Model}\label{ArgumentationModel}
+\input{Chapters/Model}
+
+\chapter{Inductive Learning Error Management}\label{ErrorManagement}
+\input{Chapters/Error.tex}
+
+\chapter{Systematic Strategy}\label{SystematicStrategy}
+\input{Chapters/Systematic_Strategy.tex}
+
+\chapter{Lazy Strategy}\label{LazyStrategy}
+\input{Chapters/Lazy_Strategy.tex}
+
+\chapter{Examples}\label{Examples}
+\input{Chapters/Examples.tex}
+
+\chapter{Evaluations}\label{Evaluations}
+\input{Chapters/Evaluation.tex}
+
+\chapter{Discussion}\label{Discussion}
+\input{Chapters/Discussion.tex}
+
+\chapter{Conclusion}\label{Conclusion}
+\input{Chapters/Conclusion.tex}
+
+
+\begin{appendices}
+\chapter{Proofs}\label{Proofs}
+\section{Proof of Theorem \ref{thm:Overall}}\label{proof:ThmOverall}
+\input{Appendix/ProofThm1.tex}
+\section{Proof of Property \ref{pp:ClassSetComb}}\label{proof:ClassSetComp}
+\input{Appendix/ProofClassSetComb.tex}
+\section{Proof of Property \ref{pp:GArgSets}}\label{proof:GArgSets}
+\input{Appendix/ProofGArgSet.tex}
+\section{Proof of Property \ref{pp:gargumentFN}}\label{proof:FalseNeg}
+\input{Appendix/ProofPpFalseNegatives.tex}
+
+\chapter{Evaluation of the Parameters}\label{apx:Parameters}
+\input{Appendix/Parameters.tex}
+
+\chapter{Messages}\label{apx:Messages}
+\input{Appendix/Messages.tex}
+\end{appendices}
+
+%------------------------------------------------------------------------------------------------------------------
+% Bibliografia
+
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+%------------------------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------------------------
+% Annex
+
+\pagebreak
+\thispagestyle{empty}
+
+%------------------------------------------------------------------------------------------------------------------
+
+\end{document}
